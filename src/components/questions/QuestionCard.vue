@@ -1,6 +1,9 @@
 <template>
   <div
-    class="question-card h-100 p-3 position-relative"
+    :class="[
+      'question-card h-100 p-3 position-relative',
+      { 'd-none': !active },
+    ]"
     @touchstart="handleTouchStart"
   >
     <div class="answer up start-0 text-center w-100">
@@ -66,6 +69,7 @@ import ArrowScrollAnimation from "./ArrowScrollAnimation.vue";
 export default {
   components: { ArrowScrollAnimation },
   name: "QuestionCard",
+  emits: ["answered"],
   props: {
     question: {
       type: Object,
@@ -110,9 +114,14 @@ export default {
       }
     },
   },
+  computed: {
+    canAnswer() {
+      return this.remainingTime > 0;
+    },
+  },
   methods: {
     formatTime(seconds) {
-      if (seconds == 0) return '0 sec';
+      if (seconds == 0) return "0 sec";
       const minutes = parseInt(seconds / 60);
       seconds = seconds % 60;
       const minutesFormatted = minutes ? `${minutes} min ` : "";
@@ -163,23 +172,39 @@ export default {
       }
       //
       this.userAnswer = this.findGestureAnswer(direction);
-      console.log(this.userAnswer);
+      this.answer(this.userAnswer);
       /* reset values */
       this.xDown = null;
       this.yDown = null;
     },
+    answer(answ) {
+      this.$emit("answered", {
+        answer: answ,
+        questionId: this.question.id,
+        duration: this.question.time - this.remainingTime,
+      });
+      this.stopCounter();
+    },
   },
   created() {
     if (this.active) this.startCounter();
+  },
+  beforeDestroy() {
+    console.log("distroyed");
+    this.$el.removeEventListener("touchstart", () => {
+      this.xDown = null;
+      this.yDown = null;
+    });
+    this.$el.removeEventListener("touchmove", () => {
+      this.xDown = null;
+      this.yDown = null;
+    });
   },
 };
 </script>
 
 <style scoped lang="scss">
 .question-card {
-  li {
-    list-style-type: none;
-  }
   .answer {
     position: absolute;
     &.up {
