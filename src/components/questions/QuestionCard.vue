@@ -1,10 +1,12 @@
 <template>
   <div
-    class="question-card h-100 p-3"
+    class="question-card h-100 p-3 position-relative"
     @touchstart="handleTouchStart"
   >
+    <div class="answer up start-0 text-center w-100">A</div>
+    <div class="answer down start-0 text-center w-100">C</div>
     <b-row class="justify-content-center align-items-center h-100">
-      <div class="text-center px-3">
+      <div class="text-start text-md-center px-3 col-md-8">
         <p class="question fs-5">
           {{ question.text }}
         </p>
@@ -17,6 +19,18 @@
           <b-col cols="6" class="text-md-center text-end">
             <span class=""> {{ question.score }} points </span>
           </b-col>
+        </b-row>
+
+        <b-row class="text-start px-3 mt-5">
+          <ul>
+            <li
+              class="mb-2"
+              v-for="option in question.options"
+              :key="Object.keys(option)[0]"
+            >
+              {{ Object.keys(option)[0] }}. {{ Object.values(option)[0] }}
+            </li>
+          </ul>
         </b-row>
       </div>
     </b-row>
@@ -36,6 +50,25 @@ export default {
     return {
       xDown: null,
       yDown: null,
+      userAnswer: null,
+      gestureAnswers: [
+        {
+          direction: "up",
+          answer: "A",
+        },
+        {
+          direction: "right",
+          answer: "B",
+        },
+        {
+          direction: "down",
+          answer: "C",
+        },
+        {
+          direction: "left",
+          answer: "D",
+        },
+      ],
     };
   },
   methods: {
@@ -45,6 +78,10 @@ export default {
       const minutesFormatted = minutes ? `${minutes} min ` : "";
       const secondssFormatted = seconds ? `${seconds} sec` : "";
       return `${minutesFormatted}${secondssFormatted}`;
+    },
+    findGestureAnswer(dir) {
+      let answ = this.gestureAnswers.find(({ direction }) => direction == dir);
+      return answ ? answ.answer : answ;
     },
     handleTouchStart(evt) {
       const firstTouch = evt.touches[0];
@@ -58,30 +95,23 @@ export default {
         return;
       }
 
-      var xUp = evt.touches[0].clientX;
-      var yUp = evt.touches[0].clientY;
+      let xUp = evt.touches[0].clientX;
+      let yUp = evt.touches[0].clientY;
 
-      var xDiff = this.xDown - xUp;
-      var yDiff = this.yDown - yUp;
+      let xDiff = this.xDown - xUp;
+      let yDiff = this.yDown - yUp;
+
+      let direction = '';
 
       if (Math.abs(xDiff) > Math.abs(yDiff)) {
         /*most significant*/
-        if (xDiff < 0) {
-          /* right swipe */
-          console.log("right");
-        } else {
-          /* left swipe */
-          console.log("left");
-        }
+        direction = xDiff < 0 ? "right" : "left";
       } else {
-        if (yDiff < 0) {
-          /* down swipe */
-          console.log("down");
-        } else {
-          /* up swipe */
-          console.log("up");
-        }
+        direction = yDiff < 0 ? "down" : "up";
       }
+      // 
+      this.userAnswer = this.findGestureAnswer(direction);
+      console.log(this.userAnswer);
       /* reset values */
       this.xDown = null;
       this.yDown = null;
@@ -89,3 +119,20 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.question-card {
+  li {
+    list-style-type: none;
+  }
+  .answer {
+    position: absolute;
+    &.up {
+      top: 10%;
+    }
+    &.down {
+      bottom: 10%;
+    }
+  }
+}
+</style>
