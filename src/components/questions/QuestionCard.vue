@@ -44,7 +44,7 @@
             </div>
           </b-col>
           <b-col cols="6" class="text-end">
-            <div class="text-end">
+            <div class="text-end position-relative">
               <arrow-scroll-animation
                 class="d-inline-block mb-1"
                 direction="right"
