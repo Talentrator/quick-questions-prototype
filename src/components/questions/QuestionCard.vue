@@ -22,7 +22,7 @@
         <b-row class="mx-0 mt-5">
           <b-col cols="6" class="text-md-center text-start">
             <span>
-              {{ formatTime(question.time) }}
+              {{ formatTime(remainingTime) }}
             </span>
           </b-col>
           <b-col cols="6" class="text-md-center text-end">
@@ -71,6 +71,10 @@ export default {
       type: Object,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -95,15 +99,37 @@ export default {
           answer: "D",
         },
       ],
+      remainingTime: this.question.time,
+      questionTimer: null,
     };
+  },
+  watch: {
+    active(newValue) {
+      if (newValue) {
+        this.startCounter();
+      }
+    },
   },
   methods: {
     formatTime(seconds) {
+      if (seconds == 0) return '0 sec';
       const minutes = parseInt(seconds / 60);
       seconds = seconds % 60;
       const minutesFormatted = minutes ? `${minutes} min ` : "";
       const secondssFormatted = seconds ? `${seconds} sec` : "";
       return `${minutesFormatted}${secondssFormatted}`;
+    },
+    startCounter() {
+      this.questionTimer = setInterval(() => {
+        if (this.remainingTime <= 0) {
+          this.stopCounter();
+          return;
+        }
+        this.remainingTime -= 1;
+      }, 1000);
+    },
+    stopCounter() {
+      if (this.questionTimer) clearInterval(this.questionTimer);
     },
     findGestureAnswer(dir) {
       let answ = this.gestureAnswers.find(({ direction }) => direction == dir);
@@ -142,6 +168,9 @@ export default {
       this.xDown = null;
       this.yDown = null;
     },
+  },
+  created() {
+    if (this.active) this.startCounter();
   },
 };
 </script>

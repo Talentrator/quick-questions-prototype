@@ -2,7 +2,7 @@
   <div
     class="position-absolute top-0 bottom-0 w-100 flash-screen left-0 bg-white"
   >
-    <question-card v-for="question in questions" :question="question" :key="question.id" />
+    <question-card v-for="question in questions" :active="true" :question="question" :key="question.id" />
   </div>
 </template>
 
