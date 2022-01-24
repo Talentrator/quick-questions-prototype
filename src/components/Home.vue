@@ -13,7 +13,7 @@
         </div>
       </b-row>
     </b-container>
-    <question-cards v-if="show" />
+    <question-cards v-if="show" @close="show = false" />
   </div>
 </template>
 

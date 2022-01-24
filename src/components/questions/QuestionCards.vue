@@ -13,6 +13,7 @@
       :questions="questions"
       :answers="userAnswers"
       v-if="showResults"
+      @close="$emit('close')"
     />
   </div>
 </template>

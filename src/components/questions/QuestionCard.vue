@@ -66,10 +66,12 @@
 
 <script>
 import ArrowScrollAnimation from "./ArrowScrollAnimation.vue";
+import Time from '@/mixins/TimeMixin.js';
 export default {
   components: { ArrowScrollAnimation },
   name: "QuestionCard",
   emits: ["answered"],
+  mixins: [Time],
   props: {
     question: {
       type: Object,
@@ -120,14 +122,6 @@ export default {
     },
   },
   methods: {
-    formatTime(seconds) {
-      if (seconds == 0) return "0 sec";
-      const minutes = parseInt(seconds / 60);
-      seconds = seconds % 60;
-      const minutesFormatted = minutes ? `${minutes} min ` : "";
-      const secondssFormatted = seconds ? `${seconds} sec` : "";
-      return `${minutesFormatted}${secondssFormatted}`;
-    },
     startCounter() {
       this.questionTimer = setInterval(() => {
         if (this.remainingTime <= 0) {
