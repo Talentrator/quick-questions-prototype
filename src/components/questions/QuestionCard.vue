@@ -7,14 +7,14 @@
     @touchstart="handleTouchStart"
   >
     <div class="answer up start-0 text-center w-100">
-      <p class="">List</p>
+      <p class="">{{question.options['A']}}</p>
       <arrow-scroll-animation class="d-inline-block my-2" direction="up" />
       <p class="fw-bold">A</p>
     </div>
     <div class="answer down start-0 text-center w-100">
       <p class="fw-bold">C</p>
       <arrow-scroll-animation class="d-inline-block my-2" />
-      <p class="">Dictionary</p>
+      <p class="">{{question.options['C']}}</p>
     </div>
     <b-row class="justify-content-center align-items-center h-100">
       <div class="text-start text-md-center px-3 col-md-8">
@@ -42,7 +42,7 @@
               />
               <div class="">
                 <p class="fw-bold">D</p>
-                <p class="">Class</p>
+                <p class="">{{question.options['D']}}</p>
               </div>
             </div>
           </b-col>
@@ -54,7 +54,7 @@
               />
               <div class="">
                 <p class="fw-bold">B</p>
-                <p class="">Tuples</p>
+                <p class="">{{question.options['B']}}</p>
               </div>
             </div>
           </b-col>
@@ -120,6 +120,9 @@ export default {
     canAnswer() {
       return this.remainingTime > 0;
     },
+    // simplifiedAnswersArray(){
+    //   return this.answer.options.map(answer => )
+    // },
   },
   methods: {
     startCounter() {

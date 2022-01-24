@@ -35,12 +35,12 @@ export default {
           id: 1,
           text: "Which of the following is not a core data type in Python programming?",
           language: "python",
-          options: [
-            { A: "Lists" },
-            { B: "Tuples" },
-            { C: "Dictionary" },
-            { D: "Class" },
-          ],
+          options: {
+            A: "Lists",
+            B: "Tuples",
+            C: "Dictionary",
+            D: "Class",
+          },
           answer: "D",
           time: 20, //in seconds
           score: 5,
@@ -49,12 +49,12 @@ export default {
           id: 2,
           text: "Which keyword is used for function in Python language?",
           language: "python",
-          options: [
-            { A: "Function" },
-            { B: "Def" },
-            { C: "Fun" },
-            { D: "Define" },
-          ],
+          options: {
+            A: "Function",
+            B: "Def",
+            C: "Fun",
+            D: "Define",
+          },
           answer: "B",
           time: 15, //in seconds
           score: 5,
@@ -63,7 +63,7 @@ export default {
           id: 3,
           text: "Which of the following character is used to give single-line comments in Python?",
           language: "python",
-          options: [{ A: "//" }, { B: "#" }, { C: "!" }, { D: "/*" }],
+          options: { A: "//", B: "#", C: "!", D: "/*" },
           answer: "B",
           time: 30, //in seconds
           score: 5,
