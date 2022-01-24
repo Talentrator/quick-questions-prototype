@@ -6,6 +6,8 @@
     ]"
     @touchstart="handleTouchStart"
     :style="styles"
+    @keyup="keyup"
+    tabindex="0"
   >
     <div class="answer up start-0 text-center w-100">
       <p class="">{{ question.options["A"] }}</p>
@@ -125,6 +127,11 @@ export default {
         this.startCounter();
       }
     },
+    canAnswer(newValue){
+      if(!newValue){
+        this.answer()
+      }
+    }
   },
   computed: {
     canAnswer() {
@@ -206,9 +213,21 @@ export default {
       });
       this.stopCounter();
     },
+    keyup(e){
+      const directionKeyValues = {
+        37: "D",
+        38: "A",
+        39: "B",
+        40: "C",
+      }
+      if (directionKeyValues[e.which]) {
+        this.answer(directionKeyValues[e.which])
+      }
+    }
   },
-  created() {
+  mounted() {
     if (this.active) this.startCounter();
+    this.$el.focus()
   },
   beforeDestroy() {
     console.log("distroyed");

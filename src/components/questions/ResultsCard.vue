@@ -9,7 +9,7 @@
       ></button>
     </div>
     <b-row class="justify-content-center align-items-center h-100">
-      <div class="col-8">
+      <div class="col-md-8">
         <p class="text-center fs-1 fw-bold">Hello there, your score is</p>
         <h2 class="text-center fw-bold mt-5 fs-1">
           <span class="p-4">{{ percentScore }}%</span>
