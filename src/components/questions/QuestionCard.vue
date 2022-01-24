@@ -7,14 +7,14 @@
     @touchstart="handleTouchStart"
   >
     <div class="answer up start-0 text-center w-100">
-      <p class="">{{question.options['A']}}</p>
+      <p class="">{{ question.options["A"] }}</p>
       <arrow-scroll-animation class="d-inline-block my-2" direction="up" />
       <p class="fw-bold">A</p>
     </div>
     <div class="answer down start-0 text-center w-100">
       <p class="fw-bold">C</p>
       <arrow-scroll-animation class="d-inline-block my-2" />
-      <p class="">{{question.options['C']}}</p>
+      <p class="">{{ question.options["C"] }}</p>
     </div>
     <b-row class="justify-content-center align-items-center h-100">
       <div class="text-start text-md-center px-3 col-md-8">
@@ -42,7 +42,7 @@
               />
               <div class="">
                 <p class="fw-bold">D</p>
-                <p class="">{{question.options['D']}}</p>
+                <p class="">{{ question.options["D"] }}</p>
               </div>
             </div>
           </b-col>
@@ -54,7 +54,7 @@
               />
               <div class="">
                 <p class="fw-bold">B</p>
-                <p class="">{{question.options['B']}}</p>
+                <p class="">{{ question.options["B"] }}</p>
               </div>
             </div>
           </b-col>
@@ -66,7 +66,7 @@
 
 <script>
 import ArrowScrollAnimation from "./ArrowScrollAnimation.vue";
-import Time from '@/mixins/TimeMixin.js';
+import Time from "@/mixins/TimeMixin.js";
 export default {
   components: { ArrowScrollAnimation },
   name: "QuestionCard",
@@ -125,6 +125,13 @@ export default {
     // },
   },
   methods: {
+    enter() {
+      this.scroll.refresh();
+      this.scroll.scrollTo(0, 0);
+    },
+    afterEnter() {
+      // this.swiper.$emit('pageAnimationEnd');
+    },
     startCounter() {
       this.questionTimer = setInterval(() => {
         if (this.remainingTime <= 0) {

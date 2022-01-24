@@ -2,13 +2,18 @@
   <div
     class="position-absolute top-0 bottom-0 w-100 flash-screen left-0 bg-white"
   >
-    <question-card
+    <transition
+      name="page-moveDown"
       v-for="(question, i) in questions"
-      :active="activeQuestion == i"
-      :question="question"
       :key="question.id"
-      @answered="recordAnswer"
-    />
+    >
+      <question-card
+        :active="activeQuestion == i"
+        v-if="activeQuestion == i"
+        :question="question"
+        @answered="recordAnswer"
+      />
+    </transition>
     <results-card
       :questions="questions"
       :answers="userAnswers"
@@ -21,6 +26,7 @@
 <script>
 import QuestionCard from "./QuestionCard.vue";
 import ResultsCard from "./ResultsCard.vue";
+import "./QuestionCardAnimation.scss";
 export default {
   components: { QuestionCard, ResultsCard },
   name: "QuestionCards",
