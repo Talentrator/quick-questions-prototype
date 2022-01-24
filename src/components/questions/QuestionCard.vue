@@ -169,9 +169,10 @@ export default {
       let direction = "";
 
       if (Math.abs(xDiff) > Math.abs(yDiff)) {
-        /*most significant*/
+        if (Math.abs(xDiff) < window.innerWidth / 4) return;
         direction = xDiff < 0 ? "right" : "left";
       } else {
+        if (Math.abs(yDiff) < window.innerWidth / 4) return;
         direction = yDiff < 0 ? "down" : "up";
       }
       //

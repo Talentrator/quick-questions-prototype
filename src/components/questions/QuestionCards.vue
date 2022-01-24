@@ -3,7 +3,9 @@
     class="position-absolute top-0 bottom-0 w-100 flash-screen left-0 bg-white"
   >
     <transition
-      name="page-moveDown"
+      name="custom"
+      enter-active-class="animate__animated animate__slideInUp"
+      leave-active-class=""
       v-for="(question, i) in questions"
       :key="question.id"
     >
@@ -14,19 +16,26 @@
         @answered="recordAnswer"
       />
     </transition>
-    <results-card
-      :questions="questions"
-      :answers="userAnswers"
-      v-if="showResults"
-      @close="$emit('close')"
-    />
+    <transition
+      name="custom"
+      enter-active-class="animate__animated animate__slideInUp"
+      leave-active-class=""
+    >
+      <results-card
+        :questions="questions"
+        :answers="userAnswers"
+        v-if="showResults"
+        @close="$emit('close')"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
 import QuestionCard from "./QuestionCard.vue";
 import ResultsCard from "./ResultsCard.vue";
-import "./QuestionCardAnimation.scss";
+import "animate.css";
+
 export default {
   components: { QuestionCard, ResultsCard },
   name: "QuestionCards",
@@ -101,5 +110,6 @@ export default {
 <style lang="scss">
 .flash-screen {
   z-index: 1000;
+  overflow: hidden;
 }
 </style>
