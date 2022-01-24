@@ -59,6 +59,10 @@ export default {
           answer: "D",
           time: 20, //in seconds
           score: 5,
+          colors: {
+            background: "#F1948A",
+            color: "#fefefe"
+          }
         },
         {
           id: 2,
@@ -73,6 +77,10 @@ export default {
           answer: "B",
           time: 15, //in seconds
           score: 5,
+          colors: {
+            background: "#76D7C4",
+            color: "#fefefe"
+          }
         },
         {
           id: 3,
@@ -82,6 +90,10 @@ export default {
           answer: "B",
           time: 30, //in seconds
           score: 5,
+          colors: {
+            background: "#BB8FCE",
+            color: "#fefefe"
+          }
         },
       ],
     };

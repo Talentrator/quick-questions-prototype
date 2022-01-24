@@ -1,5 +1,5 @@
 <template>
-  <div :class="`scroll ${direction}`">
+  <div :class="`scroll ${direction}`" :style="style">
     <div class="scroll-arrow"></div>
     <div class="scroll-arrow"></div>
     <div class="scroll-arrow"></div>
@@ -14,14 +14,24 @@ export default {
       type: String,
       default: "down",
     },
+    color: {
+      type:String,
+      default: "#000"
+    }
+  },
+  computed: {
+    style(){
+      return {'--color':this.color}
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
 $animation-delay: 0.1s;
 $arrow-size: 12px;
-$arrow-border-color: lighten(#000, 70);
+$arrow-border-color: #{var(--color)};
 
 .up {
   transform: rotate(-180deg);

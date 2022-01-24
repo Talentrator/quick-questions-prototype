@@ -5,15 +5,23 @@
       { 'd-none': !active },
     ]"
     @touchstart="handleTouchStart"
+    :style="styles"
   >
     <div class="answer up start-0 text-center w-100">
       <p class="">{{ question.options["A"] }}</p>
-      <arrow-scroll-animation class="d-inline-block my-2" direction="up" />
+      <arrow-scroll-animation
+        class="d-inline-block my-2"
+        direction="up"
+        :color="styles.color"
+      />
       <p class="fw-bold">A</p>
     </div>
     <div class="answer down start-0 text-center w-100">
       <p class="fw-bold">C</p>
-      <arrow-scroll-animation class="d-inline-block my-2" />
+      <arrow-scroll-animation
+        class="d-inline-block my-2"
+        :color="styles.color"
+      />
       <p class="">{{ question.options["C"] }}</p>
     </div>
     <b-row class="justify-content-center align-items-center h-100">
@@ -38,6 +46,7 @@
             <div class="text-start">
               <arrow-scroll-animation
                 class="d-inline-block mb-1"
+                :color="styles.color"
                 direction="left"
               />
               <div class="">
@@ -50,6 +59,7 @@
             <div class="text-end position-relative">
               <arrow-scroll-animation
                 class="d-inline-block mb-1"
+                :color="styles.color"
                 direction="right"
               />
               <div class="">
@@ -120,9 +130,15 @@ export default {
     canAnswer() {
       return this.remainingTime > 0;
     },
-    // simplifiedAnswersArray(){
-    //   return this.answer.options.map(answer => )
-    // },
+    styles() {
+      let background = "#fff",
+        color = "#000";
+      if (this.question.colors) {
+        background = this.question.colors.background;
+        color = this.question.colors.color;
+      }
+      return { background, color };
+    },
   },
   methods: {
     enter() {
