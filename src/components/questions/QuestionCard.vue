@@ -12,18 +12,20 @@
     <div class="answer up start-0 text-center w-100">
       <p class="">{{ question.options["A"] }}</p>
       <arrow-scroll-animation
-        class="d-inline-block my-2"
+        class="d-inline-block my-2 d-sm-none"
         direction="up"
         :color="styles.color"
       />
+      <kbd class="d-none my-2 d-sm-inline-block px-2"> &uarr; </kbd>
       <p class="fw-bold">A</p>
     </div>
     <div class="answer down start-0 text-center w-100">
       <p class="fw-bold">C</p>
       <arrow-scroll-animation
-        class="d-inline-block my-2"
+        class="d-inline-block my-2 d-sm-none"
         :color="styles.color"
       />
+      <kbd class="d-none my-2 d-sm-inline-block px-2"> &darr; </kbd>
       <p class="">{{ question.options["C"] }}</p>
     </div>
     <b-row class="justify-content-center align-items-center h-100">
@@ -47,10 +49,11 @@
           <b-col cols="6" class="d-flex">
             <div class="text-start">
               <arrow-scroll-animation
-                class="d-inline-block mb-1"
+                class="d-inline-block mb-1 d-sm-none"
                 :color="styles.color"
                 direction="left"
               />
+              <kbd class="d-none my-2 d-sm-inline-block px-2"> &larr; </kbd>
               <div class="">
                 <p class="fw-bold">D</p>
                 <p class="">{{ question.options["D"] }}</p>
@@ -60,10 +63,11 @@
           <b-col cols="6" class="text-end">
             <div class="text-end position-relative">
               <arrow-scroll-animation
-                class="d-inline-block mb-1"
+                class="d-inline-block mb-1 d-sm-none"
                 :color="styles.color"
                 direction="right"
               />
+              <kbd class="d-none my-2 d-sm-inline-block px-2"> &rarr; </kbd>
               <div class="">
                 <p class="fw-bold">B</p>
                 <p class="">{{ question.options["B"] }}</p>
@@ -127,11 +131,11 @@ export default {
         this.startCounter();
       }
     },
-    canAnswer(newValue){
-      if(!newValue){
-        this.answer()
+    canAnswer(newValue) {
+      if (!newValue) {
+        this.answer();
       }
-    }
+    },
   },
   computed: {
     canAnswer() {
@@ -213,21 +217,21 @@ export default {
       });
       this.stopCounter();
     },
-    keyup(e){
+    keyup(e) {
       const directionKeyValues = {
         37: "D",
         38: "A",
         39: "B",
         40: "C",
-      }
+      };
       if (directionKeyValues[e.which]) {
-        this.answer(directionKeyValues[e.which])
+        this.answer(directionKeyValues[e.which]);
       }
-    }
+    },
   },
   mounted() {
     if (this.active) this.startCounter();
-    this.$el.focus()
+    this.$el.focus();
   },
   beforeDestroy() {
     console.log("distroyed");
