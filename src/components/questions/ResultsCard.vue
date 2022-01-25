@@ -1,5 +1,5 @@
 <template>
-  <div class="question-card h-100 p-3 position-relative" :style="style">
+  <div class="question-card h-100 p-3" :style="style">
     <div class="text-end">
       <button
         type="button"

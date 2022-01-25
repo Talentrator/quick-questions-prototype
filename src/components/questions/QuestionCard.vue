@@ -9,25 +9,18 @@
     @keyup="keyup"
     tabindex="0"
   >
-    <div class="answer up start-0 text-center w-100">
-      <p class="">{{ question.options["A"] }}</p>
-      <arrow-scroll-animation
-        class="d-inline-block my-2 d-sm-none"
-        direction="up"
-        :color="styles.color"
-      />
-      <kbd class="d-none my-2 d-sm-inline-block px-2"> &uarr; </kbd>
-      <p class="fw-bold">A</p>
-    </div>
-    <div class="answer down start-0 text-center w-100">
-      <p class="fw-bold">C</p>
-      <arrow-scroll-animation
-        class="d-inline-block my-2 d-sm-none"
-        :color="styles.color"
-      />
-      <kbd class="d-none my-2 d-sm-inline-block px-2"> &darr; </kbd>
-      <p class="">{{ question.options["C"] }}</p>
-    </div>
+    <answer-option
+      :styles="styles"
+      arrowDirection="up"
+      :answerText="question.options['A']"
+      answerOption="A"
+    />
+    <answer-option
+      :styles="styles"
+      arrowDirection="down"
+      :answerText="question.options['C']"
+      answerOption="C"
+    />
     <b-row class="justify-content-center align-items-center h-100">
       <div class="text-start text-md-center px-3 col-md-8">
         <p class="question fs-5">
@@ -47,32 +40,24 @@
 
         <b-row class="text-start px-3 mt-4">
           <b-col cols="6" class="d-flex">
-            <div class="text-start">
-              <arrow-scroll-animation
-                class="d-inline-block mb-1 d-sm-none"
-                :color="styles.color"
-                direction="left"
-              />
-              <kbd class="d-none my-2 d-sm-inline-block px-2"> &larr; </kbd>
-              <div class="">
-                <p class="fw-bold">D</p>
-                <p class="">{{ question.options["D"] }}</p>
-              </div>
-            </div>
+            <answer-option
+              :styles="styles"
+              arrowDirection="left"
+              :answerText="question.options['D']"
+              answerOption="D"
+              :vertical="false"
+              class="text-start"
+            />
           </b-col>
           <b-col cols="6" class="text-end">
-            <div class="text-end position-relative">
-              <arrow-scroll-animation
-                class="d-inline-block mb-1 d-sm-none"
-                :color="styles.color"
-                direction="right"
-              />
-              <kbd class="d-none my-2 d-sm-inline-block px-2"> &rarr; </kbd>
-              <div class="">
-                <p class="fw-bold">B</p>
-                <p class="">{{ question.options["B"] }}</p>
-              </div>
-            </div>
+            <answer-option
+              :styles="styles"
+              arrowDirection="right"
+              :answerText="question.options['B']"
+              answerOption="B"
+              :vertical="false"
+              class="text-end position-relative"
+            />
           </b-col>
         </b-row>
       </div>
@@ -81,10 +66,11 @@
 </template>
 
 <script>
-import ArrowScrollAnimation from "./ArrowScrollAnimation.vue";
 import Time from "@/mixins/TimeMixin.js";
+import AnswerOption from "../AnswerOption.vue";
+
 export default {
-  components: { ArrowScrollAnimation },
+  components: { AnswerOption },
   name: "QuestionCard",
   emits: ["answered"],
   mixins: [Time],
@@ -157,7 +143,7 @@ export default {
       this.scroll.scrollTo(0, 0);
     },
     afterEnter() {
-      // this.swiper.$emit('pageAnimationEnd');
+      this.swiper.$emit('pageAnimationEnd');
     },
     startCounter() {
       this.questionTimer = setInterval(() => {
@@ -246,17 +232,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.question-card {
-  .answer {
-    position: absolute;
-    &.up {
-      top: 5%;
-    }
-    &.down {
-      bottom: 5%;
-    }
-  }
-}
-</style>
